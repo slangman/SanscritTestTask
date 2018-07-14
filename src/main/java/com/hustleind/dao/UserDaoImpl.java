@@ -1,6 +1,7 @@
 package com.hustleind.dao;
 
 import com.hustleind.entity.User;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private SessionFactory factory;
+    private final SessionFactory factory;
 
     @Autowired
     public UserDaoImpl(SessionFactory factory) {
@@ -16,17 +17,42 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean addUser(User user) {
-        return false;
+    public User getUserById(int id) {
+        if (id < 0) {
+            return null;
+        }
+        Session session = factory.getCurrentSession();
+        return session.get(User.class, id);
     }
 
     @Override
-    public boolean updateUser(User newUser) {
-        return false;
+    public boolean addUser(User user) {
+        if (user == null) {
+            return false;
+        }
+        Session session = factory.getCurrentSession();
+        session.save(user);
+        return true;
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        if (user == null) {
+            return false;
+        }
+        Session session = factory.getCurrentSession();
+        session.update(user);
+        return true;
     }
 
     @Override
     public boolean delUserById(int id) {
-        return false;
+        if (id<0) {
+            return false;
+        }
+        Session session = factory.getCurrentSession();
+        User user = getUserById(id);
+        session.delete(user);
+        return true;
     }
 }

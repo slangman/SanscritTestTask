@@ -28,7 +28,7 @@ public class Task {
 
     @Getter
     @Setter
-    private int status;
+    private boolean isCompleted;
 
     @Getter
     @Setter

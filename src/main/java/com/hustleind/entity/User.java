@@ -38,11 +38,11 @@ public class User {
 
     @Getter
     @Setter
-    private boolean isAdmin;
+    private String permission = "ROLE_USER";
 
     @Getter
     @Setter
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Task> tasks;
+    private List<Task> tasks = null;
 
 }

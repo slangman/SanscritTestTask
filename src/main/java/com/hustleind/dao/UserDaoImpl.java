@@ -1,15 +1,17 @@
 package com.hustleind.dao;
 
 import com.hustleind.entity.User;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private final SessionFactory factory;
+    private SessionFactory factory;
 
     @Autowired
     public UserDaoImpl(SessionFactory factory) {
@@ -23,6 +25,17 @@ public class UserDaoImpl implements UserDao {
         }
         Session session = factory.getCurrentSession();
         return session.get(User.class, id);
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        if (login==null || login.isEmpty()) {
+            return null;
+        }
+        Session session = factory.getCurrentSession();
+        return (User) session.createQuery("FROM User u where u.login = :login").
+                setParameter("login", login).
+                uniqueResult();
     }
 
     @Override
@@ -47,7 +60,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean delUserById(int id) {
-        if (id<0) {
+        if (id < 0) {
             return false;
         }
         Session session = factory.getCurrentSession();

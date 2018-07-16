@@ -24,8 +24,8 @@ public class TaskDaoImpl implements TaskDao {
         if (id < 0) {
             return null;
         }
-       Session session = factory.getCurrentSession();
-       return session.get(Task.class, id);
+        Session session = factory.getCurrentSession();
+        return session.get(Task.class, id);
     }
 
     @Override

@@ -1,16 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: AttenCHUN
-  Date: 12.07.2018
-  Time: 19:54
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>Hustle planner | Redirecting</title>
+    <meta http-equiv="refresh" content="1; URL=${pageContext.request.contextPath}/login">
   </head>
   <body>
-  $END$
+  Redirecting...
   </body>
 </html>

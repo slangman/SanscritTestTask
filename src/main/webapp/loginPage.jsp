@@ -30,7 +30,7 @@
             <input type="password" placeholder="Password" name="j_password">
             <%--<input type="text" name="Username" value="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}">
             <input type="password" name="Password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">--%>
-            <input type="submit" class="register" value="Login">
+            <input type="submit" class="register" value="Sign in">
         </form>
         <div class="signin-text">
             <div class="text-left">

@@ -38,6 +38,10 @@ public class User {
 
     @Getter
     @Setter
+    private boolean enabled = true;
+
+    @Getter
+    @Setter
     private String permission = "ROLE_USER";
 
     @Getter

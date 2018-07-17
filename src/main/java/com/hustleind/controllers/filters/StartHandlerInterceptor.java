@@ -26,7 +26,7 @@ public class StartHandlerInterceptor implements HandlerInterceptor {
         if (session.getAttribute("entered_user_id") == null) {
             User user = userService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
             addStartAttributeToSession(session, user);
-            response.sendRedirect(request.getContextPath() + "/university/start");
+            response.sendRedirect(request.getContextPath() + "/dashboard");
         }
         return true;
     }

@@ -38,7 +38,7 @@ public class User {
 
     @Getter
     @Setter
-    private boolean enabled = true;
+    private int enabled = 1;
 
     @Getter
     @Setter

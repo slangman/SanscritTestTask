@@ -10,14 +10,14 @@
     <http pattern="assets/**" security="none"/>
     <http pattern="css/**" security="none"/>
 
-    <http auto-config="true">
+    <http auto-config="true" use-expressions="true">
         <csrf disabled="true"/>
 
         <intercept-url pattern="/logout" access="hasRole('ROLE_USER')" />
         <intercept-url pattern="/login" access="permitAll()"/>
         <intercept-url pattern="/start" access="permitAll()"/>
         <intercept-url pattern="/signup" access="permitAll()"/>
-        <intercept-url pattern="/dashboard" access="permitAll()" />
+        <intercept-url pattern="/dashboard**" access="hasRole('ROLE_USER')" />
 
         <form-login
                 login-page="/login"
@@ -44,19 +44,19 @@
     <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
     <authentication-manager alias="authenticationManager">
-        <!--<authentication-provider>
+        <authentication-provider>
             <user-service>
                 <user name="admin" password="123" authorities="ROLE_USER" />
             </user-service>
-        </authentication-provider>-->
-        <authentication-provider>
+        </authentication-provider>
+        <!--<authentication-provider>
             <password-encoder ref="encoder"/>
             <jdbc-user-service data-source-ref="dataSource"
                                users-by-username-query=
-                                       "SELECT login, passwordHash, 'true' FROM user WHERE login = ?"
+                                       "SELECT login, passwordHash, enabled FROM user WHERE login = ?"
                                authorities-by-username-query=
-                                       "SELECT login, 'ROLE_USER' FROM user WHERE login = ?"/>
-        </authentication-provider>
+                                       "SELECT login, permission FROM user WHERE login = ?"/>
+        </authentication-provider>-->
 
 
     </authentication-manager>

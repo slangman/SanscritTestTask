@@ -36,7 +36,7 @@
                 class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <beans:property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
         <beans:property name="url"
-                        value="jdbc:mysql://localhost:3306/sanscrit_test"/>
+                        value="jdbc:mysql://localhost:3306/sanscrit_test?serverTimezone=UTC&amp;useUnicode=yes&amp;characterEncoding=UTF-8"/>
         <beans:property name="username" value="root"/>
         <beans:property name="password" value="365308" />
     </beans:bean>
@@ -44,19 +44,19 @@
     <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
     <authentication-manager alias="authenticationManager">
-        <authentication-provider>
+        <!--<authentication-provider>
             <user-service>
                 <user name="admin" password="123" authorities="ROLE_USER" />
             </user-service>
-        </authentication-provider>
-        <!--<authentication-provider>
+        </authentication-provider>-->
+        <authentication-provider>
             <password-encoder ref="encoder"/>
             <jdbc-user-service data-source-ref="dataSource"
                                users-by-username-query=
                                        "SELECT login, passwordHash, enabled FROM user WHERE login = ?"
                                authorities-by-username-query=
                                        "SELECT login, permission FROM user WHERE login = ?"/>
-        </authentication-provider>-->
+        </authentication-provider>
 
 
     </authentication-manager>

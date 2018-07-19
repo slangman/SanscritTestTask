@@ -3,9 +3,14 @@ package com.hustleind.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 @Table(name = "task")
@@ -20,11 +25,16 @@ public class Task {
 
     @Getter
     @Setter
-    private Calendar startTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
     @Getter
     @Setter
-    private Calendar endTime;
+    private LocalTime startTime;
+
+    @Getter
+    @Setter
+    private LocalTime endTime;
 
     @Getter
     @Setter

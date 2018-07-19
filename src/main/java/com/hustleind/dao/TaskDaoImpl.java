@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 
@@ -29,15 +31,22 @@ public class TaskDaoImpl implements TaskDao {
     }
 
     @Override
-    public List<Task> getTasksByDate(Calendar date) {
+    public List<Task> getAllTasks() {
+        Session session = factory.getCurrentSession();
+        return session.createQuery("FROM Task").getResultList();
+    }
+
+    @Override
+    public List<Task> getTasksByDate(LocalDate date) {
         if (date == null) {
             return null;
         }
         Session session = factory.getCurrentSession();
-        return session.createQuery("FROM Task WHERE startTime.get(Calendar.DATE) = :date").
-                setParameter("date", date.get(Calendar.DATE)).
+        return session.createQuery("FROM Task WHERE date = :date").
+                setParameter("date", date).
                 list();
     }
+
 
     @Override
     public boolean addTask(Task task) {

@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="css/font.css" type="text/css"/>
     <link href="css/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome icons -->
+
+
     <script src="js/jquery2.0.3.min.js"></script>
     <script src="js/modernizr.js"></script>
     <script src="js/jquery.cookie.js"></script>
@@ -45,111 +47,13 @@
     <!-- calendar -->
     <link rel="stylesheet" href="css/monthly.css">
     <!-- //calendar -->
+
 </head>
 <body>
 <body class="dashboard-page">
 
 <nav class="main-menu">
     <ul>
-        <li>
-            <a href="index.html">
-                <i class="fa fa-home nav_icon"></i>
-                <span class="nav-text">
-					Dashboard
-					</span>
-            </a>
-        </li>
-        <li class="has-subnav">
-            <a href="javascript:;">
-                <i class="fa fa-cogs" aria-hidden="true"></i>
-                <span class="nav-text">
-					UI Components
-				</span>
-                <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
-            </a>
-            <ul>
-                <li>
-                    <a class="subnav-text" href="buttons.html">
-                        Buttons
-                    </a>
-                </li>
-                <li>
-                    <a class="subnav-text" href="grids.html">
-                        Grids
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="has-subnav">
-            <a href="javascript:;">
-                <i class="fa fa-check-square-o nav_icon"></i>
-                <span class="nav-text">
-				Forms
-				</span>
-                <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
-            </a>
-            <ul>
-                <li>
-                    <a class="subnav-text" href="inputs.html">Inputs</a>
-                </li>
-                <li>
-                    <a class="subnav-text" href="validation.html">Form Validation</a>
-                </li>
-            </ul>
-        </li>
-        <li class="has-subnav">
-            <a href="javascript:;">
-                <i class="fa fa-file-text-o nav_icon"></i>
-                <span class="nav-text">Pages</span>
-                <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
-            </a>
-            <ul>
-                <li>
-                    <a class="subnav-text" href="gallery.html">
-                        Image Gallery
-                    </a>
-                </li>
-                <li>
-                    <a class="subnav-text" href="calendar.html">
-                        Calendar
-                    </a>
-                </li>
-                <li>
-                    <a class="subnav-text" href="signup.html">
-                        Sign Up Page
-                    </a>
-                </li>
-                <li>
-                    <a class="subnav-text" href="login.html">
-                        Login Page
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="charts.html">
-                <i class="fa fa-bar-chart nav_icon"></i>
-                <span class="nav-text">
-						Charts
-					</span>
-            </a>
-        </li>
-        <li>
-            <a href="typography.html">
-                <i class="icon-font nav-icon"></i>
-                <span class="nav-text">
-					Typography
-					</span>
-            </a>
-        </li>
-        <li>
-            <a href="tables.html">
-                <i class="icon-table nav-icon"></i>
-                <span class="nav-text">
-					Tables
-					</span>
-            </a>
-        </li>
         <li>
             <a href="maps.html">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -385,12 +289,32 @@
 
                 <div class="agile-calendar-grid">
                     <div class="page">
+
                         <div class="col-md-3 w3l-calendar-right">
-                            <div class="calendar-heading">
-                                <h3>Date Picker</h3>
+                            <div class="row">
+                                <div class="calendar-heading">
+                                    <h3>Date Picker</h3>
+                                </div>
+                                <input type="text" id="mytarget" value="Select Date">
+                                <div class="monthly" id="mycalendar2"></div>
                             </div>
-                            <input type="text" id="mytarget" value="Select Date">
-                            <div class="monthly" id="mycalendar2"></div>
+                            <div class="row">
+                                <h4>Add task</h4>
+                                <form id="addTask" method="post" action="${pageContext.request.contextPath}/dashboard/addtask">
+
+                                    <div class="form-group">
+                                        <label for="taskDateAndTime">Select date and time</label>
+                                        <div class="input-group">
+                                            <input type="datetime-local" name="taskDateAndTime" id="taskDateAndTime">
+                                        </div>
+
+                                        <label for="taskDescription">Task description</label>
+                                        <input type="text" class="form-control" id="taskDescription" name="taskDescription">
+
+                                        <button type="submit" class="btn btn-info btn-flat">OK</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                         <div class="col-md-9 w3l-calendar-left">
                             <div class="calendar-heading">
@@ -414,6 +338,7 @@
     <!-- //footer -->
 </section>
 <script src="js/bootstrap.js"></script>
+
 
 <!-- calendar -->
 <script type="text/javascript" src="js/monthly.js"></script>

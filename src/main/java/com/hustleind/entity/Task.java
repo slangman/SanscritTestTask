@@ -30,11 +30,11 @@ public class Task {
 
     @Getter
     @Setter
-    private LocalTime startTime;
+    private LocalDateTime startTime;
 
     @Getter
     @Setter
-    private LocalTime endTime;
+    private LocalDateTime endTime;
 
     @Getter
     @Setter

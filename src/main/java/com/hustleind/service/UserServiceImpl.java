@@ -3,6 +3,7 @@ package com.hustleind.service;
 import com.hustleind.dao.UserDao;
 import com.hustleind.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
@@ -17,6 +18,13 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
+
+    @Override
+    public User getActiveUser() {
+        org.springframework.security.core.userdetails.User activeUser =
+                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return getUserByLogin(activeUser.getUsername());
+    }
 
     @Override
     public User getUserById(int id) {

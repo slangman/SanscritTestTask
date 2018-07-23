@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: AttenCHUN
@@ -13,22 +14,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!-- bootstrap-css -->
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
     <!-- //bootstrap-css -->
     <!-- Custom CSS -->
-    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <link href="/css/style.css" rel='stylesheet' type='text/css' />
     <!-- font CSS -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <!-- font-awesome icons -->
-    <link rel="stylesheet" href="css/font.css" type="text/css"/>
-    <link href="css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/font.css" type="text/css"/>
+    <link href="/css/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome icons -->
 
 
-    <script src="js/jquery2.0.3.min.js"></script>
-    <script src="js/modernizr.js"></script>
-    <script src="js/jquery.cookie.js"></script>
-    <script src="js/screenfull.js"></script>
+    <script src="/js/jquery2.0.3.min.js"></script>
+    <script src="/js/modernizr.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+    <script src="/js/screenfull.js"></script>
     <script>
         $(function () {
             $('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
@@ -45,11 +46,10 @@
         });
     </script>
     <!-- calendar -->
-    <link rel="stylesheet" href="css/monthly.css">
+    <link rel="stylesheet" href="/css/monthly.css">
     <!-- //calendar -->
 
 </head>
-<body>
 <body class="dashboard-page">
 
 <nav class="main-menu">
@@ -88,7 +88,7 @@
     </ul>
     <ul class="logout">
         <li>
-            <a href="login.html">
+            <a href="/logout">
                 <i class="icon-off nav-icon"></i>
                 <span class="nav-text">
 			Logout
@@ -268,7 +268,7 @@
                             <ul class="dropdown-menu drp-mnu">
                                 <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
                                 <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
-                                <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                                <li> <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a> </li>
                             </ul>
                         </li>
                     </ul>
@@ -284,7 +284,7 @@
             <div class="grids">
 
                 <div class="progressbar-heading grids-heading">
-                    <h2>Calendar</h2>
+                    <h2>Dashboard</h2>
                 </div>
 
                 <div class="agile-calendar-grid">
@@ -292,35 +292,162 @@
 
                         <div class="col-md-3 w3l-calendar-right">
                             <div class="row">
+                            </div>
+                            <div class="row">
+                                <div class="calendar-heading">
+                                    <h3>Add/Edit task</h3>
+                                </div>
+                                <c:set var="taskSelected" value="${requestScope.get('taskSelected')}"/>
+
+                                <c:choose>
+                                    <c:when test="${taskSelected!=null}">
+                                        <form id="editTask" method="post" action="${pageContext.request.contextPath}/dashboard/editTask">
+
+                                            <input type="hidden" value="${taskSelected.id}" name="taskId">
+
+                                            <c:set var="startTimeHour" value="${taskSelected.getStartTime().getHour()}"/>
+                                            <c:set var="startTimeMinute" value="${taskSelected.getStartTime().getMinute()}"/>
+                                            <c:set var="endTimeHour" value="${taskSelected.getEndTime().getHour()}"/>
+                                            <c:set var="endTimeMinute" value="${taskSelected.getEndTime().getMinute()}"/>
+
+                                            <div class="form-group">
+                                                <label for="taskDate">Select date</label>
+                                                <input type="date" class="form-control" name="taskDate" id="taskDate" value="${taskSelected.date}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="taskStartTime">Start time</label>
+                                                <input type="time" class="form-control" name="taskStartTime" id="taskStartTime" value="${startTimeHour}:${startTimeMinute}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="taskEndTime">End time</label>
+                                                <input type="time" class="form-control" name="taskEndTime" id="taskEndTime" value="${endTimeHour}:${endTimeMinute}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="taskDescription">Task description</label>
+                                                <textarea class="form-control" id="taskDescription" name="taskDescription" rows="3">${taskSelected.description}</textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="taskCompleted">Completed</label>
+                                                <input type="checkbox" name="taskCompleted" id="taskCompleted"
+                                                       <c:if test="${taskSelected.isCompleted()==true}">checked</c:if> }>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-info btn-flat">OK</button>
+                                        </form>
+                                    </c:when>
+
+                                    <c:otherwise>
+                                        <form id="addTask" method="post" action="${pageContext.request.contextPath}/dashboard/addTask">
+
+                                            <div class="form-group">
+                                                <label for="addTaskDate">Select date</label>
+                                                <input type="date" class="form-control" name="addTaskDate" id="addTaskDate">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="addTaskStartTime">Start time</label>
+                                                <input type="time" class="form-control" name="addTaskStartTime" id="addTaskStartTime">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="addTaskEndTime">End time</label>
+                                                <input type="time" class="form-control" name="addTaskEndTime" id="addTaskEndTime">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="addTaskDescription">Task description</label>
+                                                <textarea class="form-control" id="addTaskDescription" name="addTaskDescription" rows="3"></textarea>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-info btn-flat">OK</button>
+                                        </form>
+                                    </c:otherwise>
+
+                                </c:choose>
+
+
+                                <c:if test="${taskSelected!=null}">
+
+
+                                </c:if>
+                            </div>
+                        </div>
+
+                       <%-- <div class="col-md-9 w3l-calendar-left">
+                            <div class="calendar-heading">
+                                <h3>Date Picker</h3>
+                            </div>
+                            <input type="text" id="mytarget" value="Select Date">
+                            <div class="monthly" id="mycalendar2"></div>
+                        </div>--%>
+
+
+                        <div class="col-md-9 w3l-calendar-left">
+                            <div class="row">
                                 <div class="calendar-heading">
                                     <h3>Date Picker</h3>
                                 </div>
-                                <input type="text" id="mytarget" value="Select Date">
+                                <form id="selectDate" action = "${pageContext.request.contextPath}/dashboard/selectDate" method="post">
+                                <input type="text" id="mytarget" name="dateSelected" placeholder="Select date">
                                 <div class="monthly" id="mycalendar2"></div>
-                            </div>
-                            <div class="row">
-                                <h4>Add task</h4>
-                                <form id="addTask" method="post" action="${pageContext.request.contextPath}/dashboard/addtask">
-
-                                    <div class="form-group">
-                                        <label for="taskDateAndTime">Select date and time</label>
-                                        <div class="input-group">
-                                            <input type="datetime-local" name="taskDateAndTime" id="taskDateAndTime">
-                                        </div>
-
-                                        <label for="taskDescription">Task description</label>
-                                        <input type="text" class="form-control" id="taskDescription" name="taskDescription">
-
-                                        <button type="submit" class="btn btn-info btn-flat">OK</button>
-                                    </div>
+                                    <button type="submit">OK</button>
                                 </form>
+                                <div class="error-body">
+                                    <c:set var="noDateSelected" value="${requestScope.get('noDateSelected')}"/>
+                                    <c:if test="${noDateSelected!=null}">${noDateSelected}</c:if>
+                                    <c:set var="taskMessage" value="${requestScope.get('taskMessage')}"/>
+                                    <c:if test="${taskMessage!=null}">${taskMessage}</c:if>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-9 w3l-calendar-left">
-                            <div class="calendar-heading">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <c:set var="tasksByDate" value="${requestScope.get('tasksByDate')}"/>
+                                    <c:if test="${tasksByDate!=null}">
+                                        <div class="row">
+                                            <b>Tasks list for ${requestScope.get("dateSelected")}</b>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">Start time</div>
+                                            <div class="col-md-2">End time</div>
+                                            <div class="col-md-5">Description</div>
+                                            <div class="col-md-2">Completed</div>
+                                            <div class="col-md-1">Action</div>
+                                        </div>
+                                        <c:forEach items = "${tasksByDate}" var="task">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <c:set var="startTimeHours" value="${task.startTime.getHour()}"/>
+                                                    <c:set var="startTimeMinutes" value="${task.startTime.getMinute()}"/>
+                                                    <c:choose><c:when test="${startTimeHours.toString().length()==1}">0${startTimeHours}</c:when><c:otherwise>${startTimeHours}</c:otherwise></c:choose>:<c:choose><c:when test="${startTimeMinutes.toString().length()==1}">0${startTimeMinutes}</c:when><c:otherwise>${startTimeMinutes}</c:otherwise></c:choose>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <c:set var="endTimeHours" value="${task.endTime.getHour()}"/>
+                                                    <c:set var="endTimeMinutes" value="${task.endTime.getMinute()}"/>
+                                                    <c:choose><c:when test="${endTimeHours.toString().length()==1}">0${endTimeHours}</c:when><c:otherwise>${endTimeHours}</c:otherwise></c:choose>:<c:choose><c:when test="${endTimeMinutes.toString().length()==1}">0${endTimeMinutes}</c:when><c:otherwise>${endTimeMinutes}</c:otherwise></c:choose>
+                                                </div>
+                                                <div class="col-md-5">${task.description}</div>
+                                                <div class="col-md-2">${task.isCompleted()}</div>
+                                                <div class="col-md-1">
+                                                    <form action="${pageContext.request.contextPath}/dashboard/selectTask">
+                                                        <input type="hidden" value="${requestScope.get("dateSelected")}" name="dateSelected">
+                                                        <input type="hidden" value="${task.id}" name="taskId">
+                                                        <button type="submit">Edit</button>
+                                                    </form></div>
+                                            </div>
+                                        </c:forEach>
+                                    </c:if>
+                                </div>
+                            </div>
+
+                            <%--<div class="calendar-heading">
                                 <h3>Event Calendar</h3>
                             </div>
-                            <div class="monthly" id="mycalendar"></div>
+                            <div class="monthly" id="mycalendar"></div>--%>
                         </div>
 
                         <div class="clearfix"> </div>
@@ -333,15 +460,15 @@
 
     <!-- footer -->
     <div class="footer">
-        <p>© 2016 Colored . All Rights Reserved . Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+        <p>© 2018 Hustle Industry</p>
     </div>
     <!-- //footer -->
 </section>
-<script src="js/bootstrap.js"></script>
+<script src="/js/bootstrap.js"></script>
 
 
 <!-- calendar -->
-<script type="text/javascript" src="js/monthly.js"></script>
+<script type="text/javascript" src="/js/monthly.js"></script>
 <script type="text/javascript">
     $(window).load( function() {
 

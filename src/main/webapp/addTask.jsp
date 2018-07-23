@@ -18,10 +18,15 @@
             <input type="date" name="taskDate" id="taskDate">
         </div>
 
-        <%--<div class="input-group">
-            <label for = "startTime">Start time</label>
-            <input type="time" name = "startTime" id = "startTime">
-        </div>--%>
+        <div class="input-group">
+            <label for = "taskStartTime">Start time</label>
+            <input type="time" name = "taskStartTime" id = "taskStartTime">
+        </div>
+
+        <div class="inputGroup">
+            <label for = "taskEndTime">End time</label>
+            <input type="time" name="taskEndTime" id = "taskEndTime">
+        </div>
 
         <label for="taskDescription">Task description</label>
         <input type="text" id="taskDescription" name="taskDescription">

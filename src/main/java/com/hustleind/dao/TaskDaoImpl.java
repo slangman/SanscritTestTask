@@ -1,6 +1,7 @@
 package com.hustleind.dao;
 
 import com.hustleind.entity.Task;
+import com.hustleind.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +38,14 @@ public class TaskDaoImpl implements TaskDao {
     }
 
     @Override
-    public List<Task> getTasksByDate(LocalDate date) {
+    public List<Task> getTasksByDateAndUser(LocalDate date, User user) {
         if (date == null) {
             return null;
         }
         Session session = factory.getCurrentSession();
-        return session.createQuery("FROM Task WHERE date = :date").
+        return session.createQuery("FROM Task WHERE date = :date AND user = :user order by startTime asc" ).
                 setParameter("date", date).
+                setParameter("user", user).
                 list();
     }
 

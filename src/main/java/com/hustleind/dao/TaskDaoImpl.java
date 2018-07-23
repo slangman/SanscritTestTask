@@ -43,7 +43,7 @@ public class TaskDaoImpl implements TaskDao {
             return null;
         }
         Session session = factory.getCurrentSession();
-        return session.createQuery("FROM Task WHERE date = :date AND user = :user order by startTime asc" ).
+        return session.createQuery("FROM Task WHERE date = :date AND user = :user order by startTime asc").
                 setParameter("date", date).
                 setParameter("user", user).
                 list();

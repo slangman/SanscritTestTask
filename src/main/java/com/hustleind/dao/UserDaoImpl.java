@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByLogin(String login) {
-        if (login==null || login.isEmpty()) {
+        if (login == null || login.isEmpty()) {
             return null;
         }
         Session session = factory.getCurrentSession();

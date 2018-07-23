@@ -13,13 +13,13 @@ public class LoginController {
 
     private static Logger logger = Logger.getLogger(LoginController.class);
 
-    @RequestMapping(value="/login", method= RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         logger.info("User logged in");
         return "loginPage";
     }
 
-    @RequestMapping(value="/dashboard", method=RequestMethod.GET)
+    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard() {
         return "dashboard";
     }

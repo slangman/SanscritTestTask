@@ -41,7 +41,7 @@ public class TaskController {
 
     @RequestMapping(value = "/dashboard/selectDate")
     private String viewTasks(@RequestParam("dateSelected") String dateSelected, Model model) {
-        if (dateSelected==null||dateSelected.isEmpty()) {
+        if (dateSelected == null || dateSelected.isEmpty()) {
             model.addAttribute("noDateSelected", "Please select date!");
             return defaultPath;
         }
@@ -106,7 +106,7 @@ public class TaskController {
         return defaultPath;
     }
 
-    @RequestMapping(value="dashboard/deleteTask", method=RequestMethod.GET)
+    @RequestMapping(value = "dashboard/deleteTask", method = RequestMethod.GET)
     private String deleteTask(@RequestParam("id") int id, Model model) {
         taskService.deleteTasById(id);
         model.addAttribute("taskMessage", "Task deleted successfuly");

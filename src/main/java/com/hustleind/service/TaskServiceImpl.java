@@ -29,7 +29,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public boolean addTask(Task task) {
-        if (task==null) {
+        if (task == null) {
             return false;
         }
         return taskDao.addTask(task);
@@ -37,7 +37,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public boolean updateTask(Task task) {
-        if (task==null) {
+        if (task == null) {
             return false;
         }
         return taskDao.updateTask(task);
@@ -51,7 +51,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> getTaskByDate(String date) {
         List<Task> result = new ArrayList<>();
-        if (date==null) {
+        if (date == null) {
             return result;
         }
         User currentUser = userService.getActiveUser();
@@ -63,7 +63,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public LocalDateTime parseDateTime(String date, String time) {
-        if (date==null || date.isEmpty() || time== null || time.isEmpty()) {
+        if (date == null || date.isEmpty() || time == null || time.isEmpty()) {
             return null;
         }
         LocalDateTime result;

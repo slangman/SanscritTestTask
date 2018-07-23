@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkUserExists(String login) {
-        if (login==null || login.isEmpty()) {
+        if (login == null || login.isEmpty()) {
             return false;
         }
         return (userDao.getUserByLogin(login) != null);
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUserByParams(MultiValueMap<String, String> incParam) {
-        if (incParam==null || incParam.isEmpty()) {
+        if (incParam == null || incParam.isEmpty()) {
             return false;
         }
         User user = new User();

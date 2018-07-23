@@ -28,7 +28,7 @@ public class SignupController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String registrationFormHandler (@RequestBody MultiValueMap<String, String> incParam, Model model) {
+    public String registrationFormHandler(@RequestBody MultiValueMap<String, String> incParam, Model model) {
         userService.addUserByParams(incParam);
         return "redirect:/login?signup=true";
     }

@@ -76,4 +76,9 @@ public class TaskServiceImpl implements TaskService {
                 Integer.parseInt(timeSplitted[1]));
         return result;
     }
+
+    @Override
+    public boolean deleteTasById(int id) {
+        return taskDao.deleteTaskById(id);
+    }
 }

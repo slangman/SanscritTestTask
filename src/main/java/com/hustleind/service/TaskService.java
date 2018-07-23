@@ -12,4 +12,5 @@ public interface TaskService {
     Task getTaskById(int id);
     List<Task> getTaskByDate(String date);
     LocalDateTime parseDateTime(String date, String time);
+    boolean deleteTasById(int id);
 }

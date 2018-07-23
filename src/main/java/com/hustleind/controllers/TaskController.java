@@ -106,4 +106,11 @@ public class TaskController {
         return defaultPath;
     }
 
+    @RequestMapping(value="dashboard/deleteTask", method=RequestMethod.GET)
+    private String deleteTask(@RequestParam("id") int id, Model model) {
+        taskService.deleteTasById(id);
+        model.addAttribute("taskMessage", "Task deleted successfuly");
+        return defaultPath;
+    }
+
 }

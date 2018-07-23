@@ -412,25 +412,26 @@
                                             <b>Tasks list for ${requestScope.get("dateSelected")}</b>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-2">Start time</div>
-                                            <div class="col-md-2">End time</div>
-                                            <div class="col-md-5">Description</div>
+                                            <div class="col-md-1">Start time</div>
+                                            <div class="col-md-1">End time</div>
+                                            <div class="col-md-6">Description</div>
                                             <div class="col-md-2">Completed</div>
                                             <div class="col-md-1">Action</div>
+                                            <div class="col-md-1">Delete</div>
                                         </div>
                                         <c:forEach items = "${tasksByDate}" var="task">
                                             <div class="row">
-                                                <div class="col-md-2">
+                                                <div class="col-md-1">
                                                     <c:set var="startTimeHours" value="${task.startTime.getHour()}"/>
                                                     <c:set var="startTimeMinutes" value="${task.startTime.getMinute()}"/>
                                                     <c:choose><c:when test="${startTimeHours.toString().length()==1}">0${startTimeHours}</c:when><c:otherwise>${startTimeHours}</c:otherwise></c:choose>:<c:choose><c:when test="${startTimeMinutes.toString().length()==1}">0${startTimeMinutes}</c:when><c:otherwise>${startTimeMinutes}</c:otherwise></c:choose>
                                                 </div>
-                                                <div class="col-md-2">
+                                                <div class="col-md-1">
                                                     <c:set var="endTimeHours" value="${task.endTime.getHour()}"/>
                                                     <c:set var="endTimeMinutes" value="${task.endTime.getMinute()}"/>
                                                     <c:choose><c:when test="${endTimeHours.toString().length()==1}">0${endTimeHours}</c:when><c:otherwise>${endTimeHours}</c:otherwise></c:choose>:<c:choose><c:when test="${endTimeMinutes.toString().length()==1}">0${endTimeMinutes}</c:when><c:otherwise>${endTimeMinutes}</c:otherwise></c:choose>
                                                 </div>
-                                                <div class="col-md-5">${task.description}</div>
+                                                <div class="col-md-6">${task.description}</div>
                                                 <div class="col-md-2">${task.isCompleted()}</div>
                                                 <div class="col-md-1">
                                                     <form action="${pageContext.request.contextPath}/dashboard/selectTask">
@@ -438,6 +439,9 @@
                                                         <input type="hidden" value="${task.id}" name="taskId">
                                                         <button type="submit">Edit</button>
                                                     </form></div>
+                                                <div class="col-md-1">
+                                                    <a href="${pageContext.request.contextPath}/dashboard/deleteTask?id=${task.id}">Del</a>
+                                                </div>
                                             </div>
                                         </c:forEach>
                                     </c:if>
